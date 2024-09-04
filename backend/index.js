@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //router
-app.use("/api/vi/financial", financialRouter);
+app.use("/api/v1/financial", financialRouter);
 
 app.get("/", (req, res) => {
   res.send("<h1>Financial Tracker API</h1>");
