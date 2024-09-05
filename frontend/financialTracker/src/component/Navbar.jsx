@@ -1,5 +1,12 @@
 import React from "react";
 import Header from "./Header";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 function Navbar() {
   return (
@@ -9,7 +16,7 @@ function Navbar() {
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-10 w-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -30,7 +37,7 @@ function Navbar() {
               <a>Homepage</a>
             </li>
             <li>
-              <a  href='/add'>Add new Financial</a>
+              <a href="/add">Add new Financial</a>
             </li>
           </ul>
         </div>
@@ -41,36 +48,17 @@ function Navbar() {
         </div>
       </div>
       <div className="navbar-end space-x-2">
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
+        <div  className="space-x-2">
+          <SignedOut>
+            <SignInButton
+              mode="modal"
+              className="btn btn-outline btn-success"
+            />
+            <SignUpButton mode="modal" className="btn btn-outline btn-info" />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
     </div>

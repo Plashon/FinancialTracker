@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Search from "./../component/Search";
-import Financial from "../component/Financial";
 import FinancialService from "../service/financial.service";
 import Table from "../component/Table";
 

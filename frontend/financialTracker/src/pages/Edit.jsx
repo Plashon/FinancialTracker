@@ -81,11 +81,11 @@ function Edit() {
       <label className="input input-bordered flex items-center gap-2 my-5">
         Date
         <input
-          type="date"
+          type="datetime-local"
           className="grow"
           name="date"
           onChange={handleChange}
-          value={financial.date}
+          value={financial.date.toString()}
         />
       </label>
       <label className="input input-bordered flex items-center gap-2 my-5">
@@ -113,8 +113,10 @@ function Edit() {
           Choose a Category
         </option>
         <option value="Food">Food</option>
-        <option value="Drink">Drink</option>
-        <option value="Supplies">Supplies</option>
+          <option value="fruit">Fruit</option>
+          <option value="snack">Snack</option>
+          <option value="Drink">Drink</option>
+          <option value="Supplies">Supplies</option>
       </select>
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Payment Method

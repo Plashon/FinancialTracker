@@ -7,6 +7,7 @@ const Edit = lazy(() => import("../pages/Edit"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+   
   },
 ]);
 export default router;

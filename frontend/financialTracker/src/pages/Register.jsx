@@ -1,7 +1,4 @@
-
-
-function Register  () {
-  };
+function Register() {
   return (
     <div className="container flex flex-row flex-wrap items-center justify-center mx-auto mb-5">
       <div className="my-12">
@@ -65,16 +62,13 @@ function Register  () {
           />
         </label>
         <div className="flex mx-16 justify-between">
-          <button className="btn btn-success" >
-            Register
-          </button>
-          <button className="btn btn-error" >
-            Cancel
-          </button>
+          <button className="btn btn-success">Register</button>
+          <button className="btn btn-error">Cancel</button>
         </div>
       </div>
     </div>
   );
+}
 
 
 export default Register;
