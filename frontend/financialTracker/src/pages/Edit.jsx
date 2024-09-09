@@ -140,7 +140,7 @@ function Edit() {
         onClick={handleSubmit}
         className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-5"
       >
-        Edit Financial
+        Update Financial
       </button>
     </div>
   );

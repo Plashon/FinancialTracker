@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Search from "./../component/Search";
+import Search from "../component/Search";
 import FinancialService from "../service/financial.service";
 import Table from "../component/Table";
 import {
@@ -13,7 +13,7 @@ import { Navigate } from "react-router-dom";
 
 
 
-function Home() {
+function HomeT() {
   const [financials, setFinancials] = useState([]);
   useEffect(() => {
     const getFinancial = async () =>{
@@ -37,14 +37,10 @@ function Home() {
   return (
     <>
       <div className="container flex flex-row flex-wrap mx-auto items-center justify-center">
-        <SignedOut>
-          <h1 className="text-6xl font-bold mb-5 mt-5">Welcome to your own Personal</h1>
-        </SignedOut>
-        <SignedIn>
-          <Navigate to="/dashboard"/>
-        </SignedIn>
+        <Search/>
+        <Table financials={financials}/>
       </div>
     </>
   );
 }
- export default Home;
+ export default HomeT;

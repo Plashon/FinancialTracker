@@ -4,9 +4,8 @@ const Layout = lazy(() => import("../component/Layout"));
 const Home = lazy(() => import("../pages/Home"));
 const Add = lazy(() => import("../pages/Add"));
 const Edit = lazy(() => import("../pages/Edit"));
-const Login = lazy(() => import("../pages/Login"));
-const Register = lazy(() => import("../pages/Register"));
-
+const Dashboard = lazy(() => import("../pages/deshborad/Dashboard"));
+import { FinancialRecordProvider } from "../contexts/financial.context";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +17,14 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "dashboard",
+        element: 
+          <FinancialRecordProvider>
+            <Dashboard />
+          </FinancialRecordProvider>
+        ,
+      },
+      {
         path: "add",
         element: <Add />,
       },
@@ -25,16 +32,7 @@ const router = createBrowserRouter([
         path: "edit/:id",
         element: <Edit />,
       },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
     ],
-   
   },
 ]);
 export default router;
