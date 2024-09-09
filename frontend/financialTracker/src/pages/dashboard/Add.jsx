@@ -56,7 +56,8 @@ const Add = () => {
 
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="w-96 bg-base-100 shadow-xl m-2 p-4 rounded-lg border-2 border-[#c493ff]">
+      <div className="w-96 bg-base-100 text-center shadow-xl m-2 p-4 rounded-lg border-2 border-[#c493ff]">
+      <span className="text-[#c493ff] font-bold text-3xl">Add New Financial</span> 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block font-bold">Description:</label>

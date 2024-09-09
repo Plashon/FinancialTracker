@@ -13,15 +13,15 @@ function Dashboard() {
       <div className="container flex flex-row flex-wrap mx-auto items-center justify-center">
         <div className="text-3xl font-bold mb-5 mt-5 ">
           Welcome {user?.firstName}
-          <div className="text-xl font-bold mt-5 items-start">
-            Total Monthly: 0000฿
-          </div>
         </div>
+      </div>
+      <Add />
+      <div className="container flex flex-row flex-wrap mx-auto items-center justify-center">
+        <div className="text-xl font-bold mt-5 items-start">
+          Total Monthly: 0000฿
         </div>
-        <Add />
-        
         <FinancialTable financials={financials} />
-      
+      </div>
     </>
   );
 }

@@ -7,7 +7,6 @@ const Table = ({ financials }) => {
       const response = await FinancialService.deleteFinancial(id);
       if (response.status === 200) {
         alert("Financial record has been deleted");
-        window.location.reload();
       }
     } catch (error) {
       console.log(error);

@@ -16,10 +16,31 @@ function Edit() {
     paymentMethod: "",
   });
 
+  // Utility function to format the date for input type="datetime-local"
+  const formatDateForInput = (dateString) => {
+    if (!dateString) return ""; // Handle empty date
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 16); // Formats to "YYYY-MM-DDTHH:MM" for datetime-local
+  };
+
+  // Utility function to format the date for submission to the server
+  const formatDateForSubmission = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 19).replace("T", " "); // Formats to "YYYY-MM-DD HH:MM:SS"
+  };
+
+  const categories = ["Food", "Fruit", "Snack", "Drink","Supplies"];
+  const paymentMethods = ["Cash", "Credit Card", "Bank Transfer", "PayPal"];
+
+
   useEffect(() => {
     FinancialService.getFinancialById(id).then((response) => {
       if (response.status === 200) {
-        setFinancials(response.data);
+        const fetchedData = response.data;
+        setFinancials({
+          ...fetchedData,
+          date: formatDateForInput(fetchedData.date), // Format date for input
+        });
       }
     });
   }, [id]);
@@ -30,8 +51,15 @@ function Edit() {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await FinancialService.editFinancial(id, financial);
+      const formattedDate = formatDateForSubmission(financial.date); // Format date for submission
+      const response = await FinancialService.editFinancial(id, {
+        ...financial,
+        date: formattedDate,
+      });
+
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
@@ -57,17 +85,6 @@ function Edit() {
         <span className="text-cyan-400">Edit</span> Financial Record
       </div>
       <label className="input input-bordered flex items-center gap-2 my-5">
-        UserId
-        <input
-          type="text"
-          className="grow"
-          placeholder="UserId"
-          name="userId"
-          onChange={handleChange}
-          value={financial.userId}
-        />
-      </label>
-      <label className="input input-bordered flex items-center gap-2 my-5">
         Description
         <input
           type="text"
@@ -85,7 +102,7 @@ function Edit() {
           className="grow"
           name="date"
           onChange={handleChange}
-          value={financial.date.toString()}
+          value={financial.date} // Ensure it's formatted for input
         />
       </label>
       <label className="input input-bordered flex items-center gap-2 my-5">
@@ -110,13 +127,13 @@ function Edit() {
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option value="" disabled>
-          Choose a Category
-        </option>
-        <option value="Food">Food</option>
-          <option value="fruit">Fruit</option>
-          <option value="snack">Snack</option>
-          <option value="Drink">Drink</option>
-          <option value="Supplies">Supplies</option>
+                Select a category
+              </option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
       </select>
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         Payment Method
@@ -129,11 +146,13 @@ function Edit() {
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option value="" disabled>
-          Choose a Method
-        </option>
-        <option value="Cash">Cash</option>
-        <option value="CreditCard">Credit Card</option>
-        <option value="Prompay">Prompay</option>
+                Select a payment method
+              </option>
+              {paymentMethods.map((method) => (
+                <option key={method} value={method}>
+                  {method}
+                </option>
+              ))}
       </select>
       <button
         type="submit"
