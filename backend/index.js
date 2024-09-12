@@ -4,9 +4,14 @@ const financialRouter = require("./router/financial.router");
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 const cors = require("cors");
+const FRONTEND_URL = process.env.FRONTEND_URL
+// const coreOptions = {
+//   origin: FRONTEND_URL,
+// };
 const coreOptions = {
   origin: "http://localhost:5173",
 };
+
 
 //middle were
 app.use(cors(coreOptions));

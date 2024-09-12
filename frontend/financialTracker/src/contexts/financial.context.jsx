@@ -18,8 +18,6 @@ export const FinancialRecordProvider = ({ children }) => {
     try {
       const response = await FinancialService.getAllFinancialByUserId(user.id);
       if (response.status === 200) {
-        console.log(response.data);
-        
         setFinancials(response.data);
 
       }
@@ -31,22 +29,22 @@ export const FinancialRecordProvider = ({ children }) => {
     fetchRecord();
   }, [user]);
 
-  const fetchRecordById = async () => {
-    if (!user) return;
+  const getRecordById = async (id) => {
+    // Try to find the record in the current state
+    const existingRecord = financials.find((financial) => financial.id === id);
+    if (existingRecord) return existingRecord;
+
+    // If not found, fetch from API
     try {
       const response = await FinancialService.getFinancialById(id);
       if (response.status === 200) {
-        console.log(response.data);
-        setFinancials(response.data);
-
+        return response.data;
       }
     } catch (error) {
       console.log(error);
     }
+    return null; // Return null if not found
   };
-  useEffect(() => {
-    fetchRecord();
-  }, [id]);
 
   const addFinancial = async (financial) => {
     try {
@@ -90,7 +88,7 @@ export const FinancialRecordProvider = ({ children }) => {
   };
   return (
     <FinancialRecordContext.Provider
-      value={{ financials, addFinancial, editFinancial, deleteFinancial,fetchRecordById }}
+      value={{ financials, addFinancial, editFinancial, deleteFinancial,getRecordById }}
     >
       {children}
     </FinancialRecordContext.Provider>

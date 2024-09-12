@@ -33,7 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: "editdashboard/:id",
-        element: <EditDashboard />,
+        element: (
+          <FinancialRecordProvider>
+            <EditDashboard />
+          </FinancialRecordProvider>
+        ),
       },
     ],
   },

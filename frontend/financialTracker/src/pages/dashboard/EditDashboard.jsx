@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import { useFinancialRecord } from "../../contexts/financial.context"; // ใช้ path ที่ถูกต้อง
+import { useUser } from "@clerk/clerk-react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useFinancialRecord } from "../../contexts/financial.context";
+
+const categories = ["Food", "Fruit", "Snack", "Drink", "Supplies"];
+const paymentMethods = ["Cash", "Credit Card", "Bank Transfer", "PayPal"];
 
 function EditDashboard() {
+  const { getRecordById, editFinancial } = useFinancialRecord();
+  const { user } = useUser(); // ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่
+  const { id } = useParams(); // รับ id จาก URL parameter
   const navigate = useNavigate();
-  const { id } = useParams();
-  const {editFinancial,fetchRecordById} = useFinancialRecord();
 
   const [financial, setFinancials] = useState({
-    userId: "",
     description: "",
     date: "",
     amount: "",
@@ -30,11 +34,8 @@ function EditDashboard() {
     return date.toISOString().slice(0, 19).replace("T", " "); // Formats to "YYYY-MM-DD HH:MM:SS"
   };
 
-  const categories = ["Food", "Fruit", "Snack", "Drink", "Supplies"];
-  const paymentMethods = ["Cash", "Credit Card", "Bank Transfer", "PayPal"];
-
   useEffect(() => {
-    FinancialService.getFinancialById(id).then((response) => {
+    getRecordById(id).then((response) => {
       if (response.status === 200) {
         const fetchedData = response.data;
         setFinancials({
@@ -45,6 +46,7 @@ function EditDashboard() {
     });
   }, [id]);
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFinancials({ ...financial, [name]: value });
@@ -52,10 +54,14 @@ function EditDashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      Swal.fire("Error!", "User not logged in.", "error");
+      return;
+    }
 
     try {
       const formattedDate = formatDateForSubmission(financial.date); // Format date for submission
-      const response = await FinancialService.editFinancial(id, {
+      const response = await editFinancial(id, {
         ...financial,
         date: formattedDate,
       });
