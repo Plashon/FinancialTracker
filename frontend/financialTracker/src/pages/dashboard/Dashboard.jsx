@@ -18,7 +18,7 @@ function Dashboard() {
       <Add />
       <div className="container flex flex-row flex-wrap mx-auto items-center justify-center">
         <div className="text-xl font-bold mt-5 items-start">
-          Total Monthly: 0000฿
+          Total Monthly: 76676776฿
         </div>
         <FinancialTable financials={financials} />
       </div>
