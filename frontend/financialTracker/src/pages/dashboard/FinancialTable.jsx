@@ -5,7 +5,7 @@ import { useUser } from "@clerk/clerk-react";
 
 
 const FinancialTable = ({ financials }) => {
-  const { financials,deleteFinancial } = useFinancialRecord(); // ใช้ context
+  const { deleteFinancial } = useFinancialRecord(); // ใช้ context
   const { user } = useUser();
 
   const handleDelete = async (id) => {
