@@ -1,10 +1,20 @@
 import React from "react";
-import FinancialService from "../../service/financial.service";
+import { useFinancialRecord } from "../../contexts/financial.context"; // ใช้ path ที่ถูกต้อง
+import { useUser } from "@clerk/clerk-react";
+
+
 
 const FinancialTable = ({ financials }) => {
+  const { deleteFinancial } = useFinancialRecord(); // ใช้ context
+  const { user } = useUser();
+
   const handleDelete = async (id) => {
+    if (!user) {
+      Swal.fire("Error!", "User not logged in.", "error");
+      return;
+    }
     try {
-      const response = await FinancialService.deleteFinancial(id);
+      const response = await deleteFinancial(id);
       if (response.status === 200) {
         alert("Financial record has been deleted");
         window.location.reload();
@@ -50,7 +60,7 @@ const FinancialTable = ({ financials }) => {
                       >
                         Delete
                       </button>
-                      <a className="btn btn-primary" href={`edit/${financial.id}`}>
+                      <a className="btn btn-primary" href={`editdashboard/${financial.id}`}>
                         Edit
                       </a>
                     </div>

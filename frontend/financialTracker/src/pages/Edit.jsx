@@ -6,7 +6,6 @@ import FinancialService from "../service/financial.service";
 function Edit() {
   const navigate = useNavigate();
   const { id } = useParams();
-
   const [financial, setFinancials] = useState({
     userId: "",
     description: "",

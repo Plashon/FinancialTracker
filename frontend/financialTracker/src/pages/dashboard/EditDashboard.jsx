@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom";
-import FinancialService from "../../service/financial.service";
+import { useFinancialRecord } from "../../contexts/financial.context";
 
 function EditDashboard() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const {editFinancial,fetchRecordById} = useFinancialRecord();
 
   const [financial, setFinancials] = useState({
     userId: "",
@@ -86,6 +87,7 @@ function EditDashboard() {
             <label className="block font-bold items-start">Description:</label>
             <input
               type="text"
+              name="description" // เพิ่ม name เพื่อให้ handleChange ทำงานได้
               value={financial.description}
               onChange={handleChange}
               className="input input-bordered w-full border-[#c493ff] focus:ring-2 focus:ring-[#c493ff]"
@@ -96,6 +98,7 @@ function EditDashboard() {
             <label className="block font-bold">Date:</label>
             <input
               type="datetime-local"
+              name="date" // เพิ่ม name เพื่อให้ handleChange ทำงานได้
               value={financial.date}
               onChange={handleChange}
               className="input input-bordered w-full border-[#c493ff] focus:ring-2 focus:ring-[#c493ff]"
@@ -106,6 +109,7 @@ function EditDashboard() {
             <label className="block font-bold">Amount:</label>
             <input
               type="number"
+              name="amount" // เพิ่ม name เพื่อให้ handleChange ทำงานได้
               onChange={handleChange}
               value={financial.amount}
               className="input input-bordered w-full border-[#c493ff] focus:ring-2 focus:ring-[#c493ff]"
@@ -115,6 +119,7 @@ function EditDashboard() {
           <div>
             <label className="block font-bold">Category:</label>
             <select
+              name="category" // เพิ่ม name เพื่อให้ handleChange ทำงานได้
               onChange={handleChange}
               value={financial.category}
               className="select select-bordered w-full border-[#c493ff] focus:ring-2 focus:ring-[#c493ff]"
@@ -133,6 +138,7 @@ function EditDashboard() {
           <div>
             <label className="block font-bold">Payment Method:</label>
             <select
+              name="paymentMethod" // เพิ่ม name เพื่อให้ handleChange ทำงานได้
               onChange={handleChange}
               value={financial.paymentMethod}
               className="select select-bordered w-full border-[#c493ff] focus:ring-2 focus:ring-[#c493ff]"

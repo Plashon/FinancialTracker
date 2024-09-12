@@ -1,6 +1,6 @@
 import React from "react";
 
-const footer = () => {
+const Footer = () => {
   return (
     <footer className="footer footer-center bg-base-200 text-base-content rounded p-10">
       <nav className="grid grid-flow-col gap-4">
@@ -56,4 +56,4 @@ const footer = () => {
   );
 };
 
-export default footer;
+export default Footer;

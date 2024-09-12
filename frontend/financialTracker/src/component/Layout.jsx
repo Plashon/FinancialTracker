@@ -8,7 +8,6 @@ const Layout = () => {
       <Navbar />
       <div className=" h-auto">
         <Outlet />
-     
       </div>
       <Footer />
     </>
