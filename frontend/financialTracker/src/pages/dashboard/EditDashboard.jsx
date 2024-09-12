@@ -36,13 +36,13 @@ function EditDashboard() {
 
   useEffect(() => {
     getRecordById(id).then((response) => {
-      if (response.status === 200) {
-        const fetchedData = response.data;
+      const fetchedData = response;
+        console.log(response);
+        
         setFinancials({
           ...fetchedData,
           date: formatDateForInput(fetchedData.date), // Format date for input
         });
-      }
     });
   }, [id]);
 
@@ -66,7 +66,6 @@ function EditDashboard() {
         date: formattedDate,
       });
 
-      if (response.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Financial record updated",
@@ -74,7 +73,7 @@ function EditDashboard() {
           timer: 1500,
         });
         navigate("/");
-      }
+      
     } catch (error) {
       Swal.fire({
         icon: "error",
